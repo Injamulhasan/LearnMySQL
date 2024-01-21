@@ -10,7 +10,7 @@
 Welcome to my "LearnMySQL in one repository.You can have a little tour of this repo and its resources without any cost. I hope you will be able to write SQL queries properly after watching this repo . 
  
 
-## MySQL is a powerful and popular relational database management system that plays a crucial role in web development. Here's why you should dive into MySQL :
+#### MySQL is a powerful and popular relational database management system that plays a crucial role in web development. Here's why you should dive into MySQL :
 
 ### User-Friendly:
 - MySQL is known for its ease of use, making it perfect for beginners.
