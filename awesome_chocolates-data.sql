@@ -134,8 +134,27 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 
------------------------------------------------
+
+-- 
+-- queries
+--
 
 show tables;
-select * from geo;
 
+select * from geo;
+select * from sales;
+
+select SaleDate, Amount, Customers from sales;
+select SaleDate,Customers,GeoID from sales;
+select distinct(GeoID) from sales ;
+
+select SaleDate ,Amount,Boxes, Amount/boxes as BoxAmount from sales;
+
+select * from sales 
+where Amount>=10000;
+
+select count(PID) from sales where Amount>=15000 and Boxes>1000;
+
+select * from sales where GeoID='g1' and boxes<500 order by PID,amount desc;
+
+select * from sales where amount>10000 and SaleDate >='2022-01-01';
