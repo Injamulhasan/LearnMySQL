@@ -158,3 +158,13 @@ select count(PID) from sales where Amount>=15000 and Boxes>1000;
 select * from sales where GeoID='g1' and boxes<500 order by PID,amount desc;
 
 select * from sales where amount>10000 and SaleDate >='2022-01-01';
+select * from sales where amount>10000 and SaleDate >='2021-01-01';
+select * from sales where amount>10000 and SaleDate >='2024-01-01';
+
+select SaleDate ,amount from sales where amount > 10000 and year(Saledate)=2021 order by amount desc;
+
+select * from sales where boxes  > 40 and boxes <= 50;
+
+select * from sales where boxes between 0 and 10;
+
+select Saledate,amount ,boxes ,weekday(saledate) from sales 
