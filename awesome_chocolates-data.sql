@@ -189,3 +189,80 @@ select saledate , amount ,
 	else '10k or more'
 end as 'Amount catagory'
 from sales order by amount;
+
+-- JOINS operations
+select * from sales;
+select s.SaleDate, s.amount, p.Salesperson, s.SPID, p.SPID 
+from sales as S  
+join people as p 
+on p.SPID =s.SPID  where amount between 10500 and 10600;
+
+-- Left join vs Right join 
+select s.saledate, s.amount, pr.product 
+from sales s 
+left join products pr on pr.pid = s.pid;
+
+select s.SaleDate, s.amount, p.Salesperson,pr.product , p.team
+from sales as S  
+join people as p on p.SPID =s.SPID
+join products pr on pr.pid = s.pid ;
+
+-- adding condition to joins
+select s.SaleDate, s.amount, p.Salesperson,pr.product , p.team
+from sales as S  
+join people as p on p.SPID =s.SPID
+join products pr on pr.pid = s.pid  
+where s.amount < 100 and p.team= 'Delish';
+
+select s.SaleDate, s.amount, p.Salesperson,pr.product , p.team
+from sales as S  
+join people as p on p.SPID =s.SPID
+join products pr on pr.pid = s.pid  
+where s.amount < 100 and p.team = "" ;
+
+-- more joins 
+select s.SaleDate, s.amount, p.Salesperson, pr.product , p.team
+from sales as S  
+join people as p on p.SPID = s.SPID
+join products pr on pr.pid = s.pid 
+join  geo g on g.geoid = s.geoid
+where s.amount < 100 and p.team = ""
+and g.geo in ('new zealand','india')
+order by saledate ;
+
+-- group by and creating reports
+select geoid ,sum(amount) , avg(amount) , sum(boxes) 
+from sales 
+group by geoid 
+order by geoid;
+
+select g.geo ,sum(amount) , avg(amount) , sum(boxes) 
+from sales s
+join geo g 
+on s.geoID = g.geoID
+group by g.geo
+order by g.geo;
+
+-- get the data from prople and product table
+select pr.category , p.team , sum(boxes) , sum(amount)
+from sales s 
+join people p on p.spid = s.spid
+join products pr on pr.pid = s.pid
+group by pr.category, p.team 
+order by pr.category, p.team;
+
+select pr.category , p.team , sum(boxes) , sum(amount)
+from sales s 
+join people p on p.spid = s.spid
+join products pr on pr.pid = s.pid
+where p.team <> ''       -- exclude all null team
+group by pr.category, p.team 
+order by pr.category, p.team;
+
+-- showing to 10 products by amount
+select pr.product , sum(s.amount) as 'total amount'
+from sales s 
+join products pr on pr.pid = s.pid
+group by pr.product
+order by 'total amount' desc 
+limit 10;
