@@ -134,37 +134,58 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 
+-- queries --
 
--- 
--- queries
---
 
+
+-- basic queries
 show tables;
-
 select * from geo;
 select * from sales;
-
 select SaleDate, Amount, Customers from sales;
 select SaleDate,Customers,GeoID from sales;
 select distinct(GeoID) from sales ;
 
+-- adding calculated column 
 select SaleDate ,Amount,Boxes, Amount/boxes as BoxAmount from sales;
 
-select * from sales 
-where Amount>=10000;
-
+-- where clause
+select * from sales where Amount>=10000;
 select count(PID) from sales where Amount>=15000 and Boxes>1000;
-
 select * from sales where GeoID='g1' and boxes<500 order by PID,amount desc;
-
 select * from sales where amount>10000 and SaleDate >='2022-01-01';
 select * from sales where amount>10000 and SaleDate >='2021-01-01';
 select * from sales where amount>10000 and SaleDate >='2024-01-01';
 
+-- order by -ordering query result
 select SaleDate ,amount from sales where amount > 10000 and year(Saledate)=2021 order by amount desc;
 
 select * from sales where boxes  > 40 and boxes <= 50;
 
+-- between condition
 select * from sales where boxes between 0 and 10;
 
-select Saledate,amount ,boxes ,weekday(saledate) from sales 
+-- working with dates
+select Saledate,amount ,boxes ,weekday(saledate) from sales ;
+select Saledate,amount ,boxes ,weekday(saledate) as "Day of weeks" from sales where weekday(SaleDate)=0 and boxes between 10 and 20 ;
+
+-- useing other tables
+select * from people;
+select distinct(team) from people;
+select * from people where  team ='Delish' or team='jucies';
+select * from people where team in ('Delish','jucies') and location='Hyderabad';
+
+-- pattern matching
+select * from people where salesperson like 'B%';
+select * from people where salesperson like '%e';
+select * from people where salesperson like '%B%';
+
+-- case operator and branching logic
+select saledate , amount ,
+	case 
+		when amount < 1000 then 'Under 1k' 
+		when amount < 5000 then 'Under 5k' 
+		when amount < 10000 then 'Under 10k' 
+	else '10k or more'
+end as 'Amount catagory'
+from sales order by amount;
