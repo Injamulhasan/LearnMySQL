@@ -23,6 +23,7 @@ JOIN people on stars.person_id = people.id
 WHERE name = 'Steve Carell';
 
 
+.timer ON
 SELECT title FROM shows ,stars,people 
 WHERE shows.id =stars.show_id 
 and people.id = stars.person_id 
@@ -31,3 +32,22 @@ and name = 'Steve Carell';
 
 .timer ON
 SELECT * FROM shows WHERE title = 'The Office';
+
+.timer ON
+CREATE INDEX title_index ON shows (title);
+SELECT * FROM shows WHERE title = 'The Office';
+
+.timer ON
+CREATE INDEX person_index on stars (person_id);
+
+.timer ON
+CREATE INDEX show_index on stars (show_id);
+
+.timer ON
+CREATE INDEX nam_index on people (name);
+
+.timer ON
+SELECT title FROM shows ,stars,people 
+WHERE shows.id =stars.show_id 
+and people.id = stars.person_id 
+and name = 'Steve Carell';
